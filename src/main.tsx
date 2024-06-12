@@ -2,23 +2,29 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { ChakraBaseProvider, extendTheme } from "@chakra-ui/react";
-
-const config = {
-  initialColorMode: "dark",
-};
+import { BrowserRouter } from "react-router-dom";
 
 export const theme = extendTheme({
   fonts: {
-    heading: "Plus Jakarta Sans",
-    body: "Plus Jakarta Sans",
+    heading: "Poppins",
+    body: "Poppins",
   },
-  config,
+  styles: {
+    global: {
+      body: {
+        bg: "black",
+        color: "white",
+      },
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ChakraBaseProvider theme={theme}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ChakraBaseProvider>
   </React.StrictMode>
 );
