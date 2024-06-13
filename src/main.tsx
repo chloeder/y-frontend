@@ -4,6 +4,15 @@ import App from "./App.tsx";
 import { ChakraBaseProvider, extendTheme } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 
+const breakpoints = {
+  base: "0",
+  sm: "425px",
+  md: "768px",
+  lg: "960px",
+  xl: "1200px",
+  "2xl": "1536px",
+};
+
 export const theme = extendTheme({
   fonts: {
     heading: "Poppins",
@@ -17,6 +26,7 @@ export const theme = extendTheme({
       },
     },
   },
+  breakpoints,
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
