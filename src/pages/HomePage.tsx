@@ -1,20 +1,18 @@
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   Heading,
   IconButton,
   Image,
   Show,
   Text,
+  Textarea,
 } from "@chakra-ui/react";
-import {
-  CircleFadingPlus,
-  Ellipsis,
-  Heart,
-  MessageSquareText,
-} from "lucide-react";
+import { Ellipsis, Heart, ImagePlus, MessageSquareText } from "lucide-react";
 import Topbar from "../components/ui/navigations/Topbar";
+import FloatingButton from "../components/ui/mobile/FloatingButton";
 
 export default function HomePage() {
   return (
@@ -22,8 +20,48 @@ export default function HomePage() {
       {/* TopBar */}
       <Topbar />
 
+      {/* Feed Post */}
+      <Show above={"md"}>
+        <Box display={"flex"} my={"20px"} mx={"20px"}>
+          <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+          <Box display={"flex"} flexDirection={"column"} width={"100%"}>
+            <Textarea
+              placeholder="What's on your mind, Dan?"
+              size={"md"}
+              border={"none"}
+              width={"100%"}
+              resize={"none"}
+              focusBorderColor="none"
+            />
+            <Divider borderColor={"gray.600"} my={"1rem"} />
+            <Box
+              mx={"1rem"}
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+            >
+              <IconButton
+                variant={"unstyled"}
+                color={"blue.500"}
+                aria-label="Add to friends"
+                icon={<ImagePlus />}
+              />
+              <Button
+                colorScheme={"blue"}
+                size={"sm"}
+                borderRadius={"full"}
+                w={"7rem"}
+              >
+                Post
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+        <Divider borderColor={"gray.600"} />
+      </Show>
+
       {/* Feed */}
-      <Box display={"flex"} mt={"20px"} mx={"20px"}>
+      <Box display={"flex"} mt={"20px"} mx={"20px"} my={"20px"}>
         <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
         <Box ml={"10px"} flex={1}>
           <Box
@@ -56,8 +94,8 @@ export default function HomePage() {
         </Box>
         <Ellipsis size={20} color={"gray"} />
       </Box>
-      <Divider borderColor={"gray.600"} my={"20px"} />
-      <Box display={"flex"} mx={"20px"}>
+      <Divider borderColor={"gray.600"} />
+      <Box display={"flex"} mx={"20px"} my={"20px"}>
         <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
         <Box ml={"10px"} flex={1}>
           <Heading size={"sm"}>Dan Abrahmov</Heading>
@@ -84,8 +122,8 @@ export default function HomePage() {
         </Box>
         <Ellipsis size={20} color={"gray"} />
       </Box>
-      <Divider borderColor={"gray.600"} my={"20px"} />
-      <Box display={"flex"} mx={"20px"}>
+      <Divider borderColor={"gray.600"} />
+      <Box display={"flex"} mx={"20px"} my={"20px"}>
         <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
         <Box ml={"10px"} flex={1}>
           <Heading size={"sm"}>Dan Abrahmov</Heading>
@@ -112,22 +150,11 @@ export default function HomePage() {
         </Box>
         <Ellipsis size={20} color={"gray"} />
       </Box>
-      <Divider borderColor={"gray.600"} my={"20px"} />
+      <Divider borderColor={"gray.600"} />
       {/* End of Feed */}
 
-      <Show below="md">
-        <IconButton
-          borderRadius={"full"}
-          position={"fixed"}
-          zIndex={10}
-          bottom={"80px"}
-          right={"20px"}
-          colorScheme="blue"
-          aria-label="Call Segun"
-          boxSize={"60px"}
-          icon={<CircleFadingPlus />}
-        />
-      </Show>
+      {/* Floating Button */}
+      <FloatingButton />
     </>
   );
 }

@@ -10,6 +10,7 @@ export default function RightBar() {
       alignItems={"center"}
       gap={"20px"}
       p={"20px"}
+      width={"50%"}
     >
       <Card>
         <Suggestion />

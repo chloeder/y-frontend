@@ -5,53 +5,52 @@ import {
   Home,
   UserRoundSearch,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function BottomBar() {
+  const location = useLocation();
+
   return (
-    <>
-      {/* RightBar & BottomBar */}
+    <Box
+      hideFrom={"md"}
+      position={"fixed"}
+      bottom={"0px"}
+      w={"100%"}
+      h={"50px"}
+      bg={"black"}
+      zIndex={10}
+    >
       <Box
-        hideFrom={"md"}
-        position={"fixed"}
-        bottom={"0px"}
-        w={"100%"}
-        h={"50px"}
-        bg={"black"}
-        zIndex={10}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"space-around"}
+        h={"100%"}
       >
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"space-around"}
-          h={"100%"}
-        >
-          <Link to={"/"}>
-            <Home
-              size={30}
-              color={location.pathname === "/" ? "white" : "gray"}
-            />
-          </Link>
-          <Link to={"/search"}>
-            <UserRoundSearch
-              size={30}
-              color={location.pathname === "/search" ? "white" : "gray"}
-            />
-          </Link>
-          <Link to={"/follow"}>
-            <HeartHandshake
-              size={30}
-              color={location.pathname === "/follow" ? "white" : "gray"}
-            />
-          </Link>
-          <Link to={"/profile"}>
-            <CircleUser
-              size={30}
-              color={location.pathname === "/profile" ? "white" : "gray"}
-            />
-          </Link>
-        </Box>
+        <Link to={"/"}>
+          <Home
+            size={30}
+            color={location.pathname === "/" ? "white" : "gray"}
+          />
+        </Link>
+        <Link to={"/search"}>
+          <UserRoundSearch
+            size={30}
+            color={location.pathname === "/search" ? "white" : "gray"}
+          />
+        </Link>
+        <Link to={"/follow"}>
+          <HeartHandshake
+            size={30}
+            color={location.pathname === "/follow" ? "white" : "gray"}
+          />
+        </Link>
+        <Link to={"/profile"}>
+          <CircleUser
+            size={30}
+            color={location.pathname === "/profile" ? "white" : "gray"}
+          />
+        </Link>
       </Box>
-    </>
+    </Box>
   );
 }

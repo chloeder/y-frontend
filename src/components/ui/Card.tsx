@@ -9,6 +9,7 @@ export default function Card({ children }: { children: React.ReactNode }) {
       display={"flex"}
       flexDirection={"column"}
       gap={"20px"}
+      width={"100%"}
     >
       <Heading size={"sm"}>Suggestion For You</Heading>
       {children}

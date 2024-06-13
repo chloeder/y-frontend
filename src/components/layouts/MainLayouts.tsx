@@ -12,14 +12,16 @@ export default function MainLayout() {
       </Show>
 
       <Flex
+        w={"100%"}
         overflow="auto"
-        maxHeight="100vh"
+        h="100vh"
         flexDirection={"column"}
         borderLeft={{ md: "1px solid #2c3340" }}
         borderRight={{ lg: "1px solid #2c3340" }}
       >
         <Outlet />
       </Flex>
+
       <Show above="lg">
         <RightBar />
       </Show>

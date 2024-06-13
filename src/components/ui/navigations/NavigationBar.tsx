@@ -1,4 +1,18 @@
-import { Avatar, Box, IconButton, Image } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Heading,
+  IconButton,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Show,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import {
   CircleFadingPlus,
   CircleUser,
@@ -6,51 +20,168 @@ import {
   Home,
   UserRoundSearch,
 } from "lucide-react";
-import { Link } from "react-router-dom";
-import logo from "../../../assets/img/y.svg";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../../../assets/img/Y.png";
+import ModalPost from "../ModalPost";
 
 export default function NavigationBar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
+
   return (
     <Box
       display={"flex"}
       flexDirection={"column"}
-      alignItems={"center"}
-      gap={"20px"}
-      width={"15rem"}
+      justifyContent={{
+        base: "center",
+        md: "space-between",
+        lg: "space-between",
+        xl: "space-between",
+      }}
+      py={"20px"}
+      px={"30px"}
+      width={{ base: "10rem", md: "10rem", lg: "10rem", xl: "40%" }}
     >
-      <Link to={"/"}>
-        <Image src={logo} alt={"logo"} width={"80px"} objectFit={"cover"} />
-      </Link>
-      <Link to={"/"}>
-        <Home size={30} color={location.pathname === "/" ? "white" : "gray"} />
-      </Link>
-      <Link to={"/search"}>
-        <UserRoundSearch
-          size={30}
-          color={location.pathname === "/search" ? "white" : "gray"}
-        />
-      </Link>
-      <Link to={"/follow"}>
-        <HeartHandshake
-          size={30}
-          color={location.pathname === "/follow" ? "white" : "gray"}
-        />
-      </Link>
-      <Link to={"/profile"}>
-        <CircleUser
-          size={30}
-          color={location.pathname === "/profile" ? "white" : "gray"}
-        />
-      </Link>
-      <IconButton
-        borderRadius={"full"}
-        colorScheme="blue"
-        aria-label="Call Segun"
-        boxSize={"50px"}
-        icon={<CircleFadingPlus />}
-      />
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={{
+          base: "center",
+          md: "center",
+          lg: "center",
+          xl: "flex-start",
+        }}
+        gap={{ base: "20px", md: "40px", lg: "40px", xl: "30px" }}
+      >
+        <Link to={"/"}>
+          <Image
+            src={logo}
+            alt={"logo"}
+            boxSize={"40px"}
+            objectFit={"cover"}
+            border={"1px"}
+          />
+        </Link>
+        <Link to={"/"}>
+          <Box display={{ xl: "flex" }} gap={"15px"} alignItems={"center"}>
+            <Home
+              size={30}
+              color={location.pathname === "/" ? "white" : "gray"}
+            />
+            <Text
+              hideBelow={"xl"}
+              fontSize={"25px"}
+              color={location.pathname === "/" ? "white" : "gray"}
+            >
+              Home
+            </Text>
+          </Box>
+        </Link>
+        <Link to={"/search"}>
+          <Box display={{ xl: "flex" }} gap={"15px"} alignItems={"center"}>
+            <UserRoundSearch
+              size={30}
+              color={location.pathname === "/search" ? "white" : "gray"}
+            />
+            <Text
+              hideBelow={"xl"}
+              fontSize={"25px"}
+              color={location.pathname === "/search" ? "white" : "gray"}
+            >
+              Search
+            </Text>
+          </Box>
+        </Link>
+        <Link to={"/follow"}>
+          <Box display={{ xl: "flex" }} gap={"15px"} alignItems={"center"}>
+            <HeartHandshake
+              size={30}
+              color={location.pathname === "/follow" ? "white" : "gray"}
+            />
+            <Text
+              hideBelow={"xl"}
+              fontSize={"25px"}
+              color={location.pathname === "/follow" ? "white" : "gray"}
+            >
+              Follow
+            </Text>
+          </Box>
+        </Link>
+        <Link to={"/profile"}>
+          <Box display={{ xl: "flex" }} gap={"15px"} alignItems={"center"}>
+            <CircleUser
+              size={30}
+              color={location.pathname === "/profile" ? "white" : "gray"}
+            />
+            <Text
+              hideBelow={"xl"}
+              fontSize={"25px"}
+              color={location.pathname === "/profile" ? "white" : "gray"}
+            >
+              Profile
+            </Text>
+          </Box>
+        </Link>
 
-      <Avatar size="sm" />
+        <Show below={"xl"}>
+          <IconButton
+            borderRadius={"full"}
+            colorScheme="blue"
+            aria-label="Call Segun"
+            boxSize={"50px"}
+            icon={<CircleFadingPlus />}
+            onClick={onOpen}
+          />
+
+          <ModalPost isOpen={isOpen} onClose={onClose} size={"full"} />
+        </Show>
+
+        <Show above={"xl"}>
+          <Button
+            borderRadius={"full"}
+            colorScheme="blue"
+            aria-label="Call Segun"
+            boxSize={"40px"}
+            width={"100%"}
+            onClick={onOpen}
+          >
+            <Text fontSize={"20px"}>Post</Text>
+          </Button>
+          <ModalPost isOpen={isOpen} onClose={onClose} size={"xl"} />
+        </Show>
+      </Box>
+
+      <Menu isLazy>
+        <MenuButton>
+          <Box
+            display={{ xl: "flex" }}
+            gap={"10px"}
+            alignItems={"center"}
+            width={"100%"}
+          >
+            <Avatar />
+            <Box hideBelow={"xl"}>
+              <Heading size={"sm"}>Steward Lumowa </Heading>
+              <Text
+                display={{ base: "none", md: "flex" }}
+                fontSize={"xs"}
+                color={"gray.500"}
+              >
+                @steward_lumowa
+              </Text>
+            </Box>
+          </Box>
+        </MenuButton>
+        <MenuList color={"gray.500"} bgColor={"black"}>
+          {/* MenuItems are not rendered unless Menu is open */}
+          <MenuItem bg={"black"} as="a" href="#" _hover={{ color: "white" }}>
+            Edit Profile
+          </MenuItem>
+          <MenuItem bg={"black"} as="a" href="#" _hover={{ color: "white" }}>
+            Logout
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </Box>
   );
 }

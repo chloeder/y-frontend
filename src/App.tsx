@@ -10,9 +10,9 @@ function App() {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="search" element={<SearchPage />} />
-        <Route path="follow" element={<FollowPage />} />
-        <Route path="profile" element={<ProfilePage />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/follow" element={<FollowPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
     </Routes>
   );
