@@ -15,6 +15,7 @@ export default function SearchPage() {
       <Box
         position={"sticky"}
         top={"0"}
+        bg="rgba(0, 0, 0, 0.4)"
         backdropFilter="auto"
         backdropBlur={"40px"}
         zIndex={10}

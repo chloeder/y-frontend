@@ -1,6 +1,6 @@
 import { IconButton, Show, useDisclosure } from "@chakra-ui/react";
 import { CircleFadingPlus } from "lucide-react";
-import ModalPost from "../ModalPost";
+import ModalPost from "../modals/ModalPost";
 
 export default function FloatingButton() {
   const { isOpen, onClose, onOpen } = useDisclosure();

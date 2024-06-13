@@ -7,12 +7,15 @@ import {
   Heading,
   Image,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ArrowLeft, Ellipsis, Heart, MessageSquareText } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ModalProfile from "../components/ui/modals/ModalProfile";
 
 export default function ProfilePage() {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const [profileType, setProfileType] = useState("posts");
 
   return (
@@ -21,6 +24,7 @@ export default function ProfilePage() {
       <Box
         position={"sticky"}
         top={"0"}
+        bg="rgba(0, 0, 0, 0.5)"
         backdropFilter="auto"
         backdropBlur={"20px"}
         zIndex={10}
@@ -70,9 +74,16 @@ export default function ProfilePage() {
             color={"white"}
             alignSelf={"flex-end"}
             mt={"10px"}
+            onClick={onOpen}
           >
             Edit Profile
           </Button>
+
+          <ModalProfile
+            isOpen={isOpen}
+            onClose={onClose}
+            size={{ base: "full", sm: "full", md: "lg", lg: "xl", xl: "2xl" }}
+          />
 
           <Box mt={"20px"} mb={"10px"}>
             <Heading size={"md"}>Steward Lumowa</Heading>

@@ -82,7 +82,7 @@ export default function HomePage() {
             dolorem minima.
           </Text>
           <Image src="https://bit.ly/dan-abramov" mt={"10px"} />
-          <Box display={"flex"} mt={"10px"} gap={"10px"} color={"gray"}>
+          <Box display={"flex"} mt={"10px"} gap={"2rem"} color={"gray"}>
             <Box display={"flex"} alignItems={"center"}>
               <Heart size={20} /> <Text ml={"5px"}>10</Text>
             </Box>

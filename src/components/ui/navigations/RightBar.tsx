@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Card from "../Card";
+import Card from "../cards/Card";
 import Suggestion from "../Suggestion";
 
 export default function RightBar() {

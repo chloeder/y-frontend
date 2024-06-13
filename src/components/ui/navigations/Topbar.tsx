@@ -9,6 +9,7 @@ export default function Topbar() {
     <Box
       position={"sticky"}
       top={"0"}
+      bg="rgba(0, 0, 0, 0.7)"
       backdropFilter="auto"
       backdropBlur={"40px"}
       zIndex={10}

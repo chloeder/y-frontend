@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/img/Y.png";
-import ModalPost from "../ModalPost";
+import ModalPost from "../modals/ModalPost";
 
 export default function NavigationBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -40,7 +40,7 @@ export default function NavigationBar() {
       }}
       py={"20px"}
       px={"30px"}
-      width={{ base: "10rem", md: "10rem", lg: "10rem", xl: "40%" }}
+      width={{ base: "6rem", md: "6rem", lg: "6rem", xl: "40%" }}
     >
       <Box
         display={"flex"}
@@ -133,7 +133,7 @@ export default function NavigationBar() {
             onClick={onOpen}
           />
 
-          <ModalPost isOpen={isOpen} onClose={onClose} size={"full"} />
+          <ModalPost isOpen={isOpen} onClose={onClose} size={"xl"} />
         </Show>
 
         <Show above={"xl"}>
@@ -174,7 +174,12 @@ export default function NavigationBar() {
         </MenuButton>
         <MenuList color={"gray.500"} bgColor={"black"}>
           {/* MenuItems are not rendered unless Menu is open */}
-          <MenuItem bg={"black"} as="a" href="#" _hover={{ color: "white" }}>
+          <MenuItem
+            bg={"black"}
+            as={Link}
+            to="/profile"
+            _hover={{ color: "white" }}
+          >
             Edit Profile
           </MenuItem>
           <MenuItem bg={"black"} as="a" href="#" _hover={{ color: "white" }}>
