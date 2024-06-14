@@ -5,6 +5,8 @@ import FollowPage from "./pages/FollowPage";
 import ProfilePage from "./pages/ProfilePage";
 import MainLayout from "./components/layouts/MainLayouts";
 import DetailPage from "./pages/DetailPage";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
         <Route path="/follow" element={<FollowPage />} />
         <Route path="/profile" element={<ProfilePage />} />
       </Route>
+
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );
 }
