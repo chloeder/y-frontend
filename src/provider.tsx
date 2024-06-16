@@ -9,7 +9,9 @@ export default function Provider({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ChakraBaseProvider theme={theme}>
-        <BrowserRouter>{children}</BrowserRouter>
+        <BrowserRouter>
+          {children} {/* set up the dev tool */}
+        </BrowserRouter>
       </ChakraBaseProvider>
     </QueryClientProvider>
   );

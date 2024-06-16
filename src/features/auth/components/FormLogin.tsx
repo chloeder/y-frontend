@@ -13,13 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../../lib/axios";
 import { LoginDto } from "../types/auth.type";
 import { loginSchema } from "../validation/auth.validate";
 
 export default function FormLogin() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -31,7 +31,9 @@ export default function FormLogin() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (data: LoginDto) => {
-      const res = await axiosInstance.post("/auth/login", data);
+      const res = await axiosInstance.post("/auth/login", data, {
+        withCredentials: true,
+      });
       return res.data;
     },
     onSuccess: () => {
@@ -47,7 +49,7 @@ export default function FormLogin() {
   const onSubmit = (data: LoginDto) => {
     try {
       mutateAsync(data);
-      // navigate("/login");
+      navigate("/");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message);

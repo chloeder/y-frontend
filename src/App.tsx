@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="/:id" element={<DetailPage />} />
+          <Route path="/thread/:id" element={<DetailPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/follow" element={<FollowPage />} />
           <Route path="/profile" element={<ProfilePage />} />
