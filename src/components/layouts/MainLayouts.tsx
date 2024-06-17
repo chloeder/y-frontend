@@ -8,6 +8,7 @@ export default function MainLayout() {
   return (
     <Flex>
       <Show above="md">
+        {" "}
         <NavigationBar />
       </Show>
 

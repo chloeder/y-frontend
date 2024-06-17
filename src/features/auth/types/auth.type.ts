@@ -9,3 +9,12 @@ export type RegisterDto = {
   email: string;
   password: string;
 };
+
+export type AuthUser = {
+  id: string;
+  fullName: string;
+  username: string;
+  email: string;
+  photoProfile?: string;
+  bio?: string;
+};

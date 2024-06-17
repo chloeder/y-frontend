@@ -10,16 +10,16 @@ import {
 import { useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { axiosInstance } from "../../../lib/axios";
 import { LoginDto } from "../types/auth.type";
 import { loginSchema } from "../validation/auth.validate";
 
 export default function FormLogin() {
-  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -37,7 +37,9 @@ export default function FormLogin() {
       return res.data;
     },
     onSuccess: () => {
+      // refetch the authUser
       toast.success("Login Success");
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
@@ -49,7 +51,6 @@ export default function FormLogin() {
   const onSubmit = (data: LoginDto) => {
     try {
       mutateAsync(data);
-      navigate("/");
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.message);
