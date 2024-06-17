@@ -14,7 +14,6 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CircleFadingPlus,
   CircleUser,
@@ -22,12 +21,13 @@ import {
   Home,
   UserRoundSearch,
 } from "lucide-react";
-import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/img/Y.png";
-import { AuthUser } from "../../../features/auth/types/auth.type";
-import { axiosInstance } from "../../../lib/axios";
 import ModalPost from "../modals/ModalPost";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { axiosInstance } from "../../../lib/axios";
+import toast from "react-hot-toast";
+import { AuthUser } from "../../../features/auth/types/auth.type";
 
 export default function NavigationBar() {
   const queryClient = useQueryClient();
@@ -50,8 +50,7 @@ export default function NavigationBar() {
     },
     onSuccess: () => {
       toast.success("Logout Success");
-      queryClient.invalidateQueries({ queryKey: ["authUser"] });
-      queryClient.invalidateQueries({ queryKey: ["threads"] });
+      queryClient.resetQueries({ queryKey: ["authUser"] });
     },
     onError: () => {
       toast.error("Failed to logout");
