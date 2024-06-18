@@ -17,9 +17,7 @@ function App() {
     queryKey: ["authUser"],
     queryFn: async () => {
       try {
-        const res = await axiosInstance.get("/auth/check-me", {
-          withCredentials: true,
-        });
+        const res = await axiosInstance.get("/auth/check-me");
         return res.data;
       } catch (error) {
         throw new Error("Unauthenticated");

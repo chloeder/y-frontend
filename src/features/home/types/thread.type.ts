@@ -16,4 +16,5 @@ export type ThreadProps = {
   createdAt: string;
   likes: number;
   replies: number;
+  isLiked: boolean;
 };

@@ -1,7 +1,8 @@
 import { Avatar, Box, Divider, Heading, Image, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { Ellipsis, Heart, MessageSquareText } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import { useParams } from "react-router-dom";
+import ThreadFooter from "../../../components/ui/ThreadFooter";
 import { axiosInstance } from "../../../lib/axios";
 import { ThreadEntity } from "../entities/thread.entity";
 
@@ -11,9 +12,7 @@ export default function ThreadItem() {
   const thread = useQuery<ThreadEntity>({
     queryKey: ["thread", id],
     queryFn: async () => {
-      const res = await axiosInstance.get(`/threads/${id}`, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.get(`/threads/${id}`);
       return res.data;
     },
   });
@@ -60,15 +59,12 @@ export default function ThreadItem() {
             </Text>
           </Box>
           <Divider borderColor={"gray.600"} my={"10px"} />
-          <Box display={"flex"} mt={"10px"} gap={"2rem"} color={"gray"}>
-            <Box display={"flex"} alignItems={"center"}>
-              <Heart size={20} /> <Text ml={"5px"}>{thread.data?.likes}</Text>
-            </Box>
-            <Box display={"flex"} alignItems={"center"}>
-              <MessageSquareText size={20} />
-              <Text ml={"5px"}>{thread.data?.replies}</Text>
-            </Box>
-          </Box>
+          <ThreadFooter
+            id={thread.data?.id}
+            isLiked={thread.data?.isLiked}
+            likes={thread.data?.likes}
+            replies={thread.data?.replies}
+          />
         </Box>
       </Box>
     </>

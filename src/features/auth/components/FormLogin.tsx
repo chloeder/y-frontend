@@ -31,9 +31,7 @@ export default function FormLogin() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (data: LoginDto) => {
-      const res = await axiosInstance.post("/auth/login", data, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.post("/auth/login", data);
       return res.data;
     },
     onSuccess: () => {

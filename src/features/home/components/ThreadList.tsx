@@ -8,18 +8,20 @@ import {
   LinkOverlay,
   Text,
 } from "@chakra-ui/react";
-import { Ellipsis, Heart, MessageSquareText } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import { Link } from "react-router-dom";
+import ThreadFooter from "../../../components/ui/ThreadFooter";
 import { ThreadProps } from "../types/thread.type";
 
 export default function ThreadList({
+  id,
   content,
   image,
   users,
   createdAt,
   likes,
   replies,
-  id,
+  isLiked,
 }: ThreadProps) {
   return (
     <>
@@ -42,15 +44,12 @@ export default function ThreadList({
               <Image src={image} mt={"10px"} borderRadius={"xl"} />
             </LinkOverlay>
           </LinkBox>
-          <Box display={"flex"} mt={"10px"} gap={"2rem"} color={"gray"}>
-            <Box display={"flex"} alignItems={"center"}>
-              <Heart size={20} /> <Text ml={"5px"}>{likes}</Text>
-            </Box>
-            <Box display={"flex"} alignItems={"center"}>
-              <MessageSquareText size={20} />
-              <Text ml={"5px"}>{replies}</Text>
-            </Box>
-          </Box>
+          <ThreadFooter
+            id={id}
+            likes={likes}
+            replies={replies}
+            isLiked={isLiked}
+          />
         </Box>
         <Ellipsis size={20} color={"gray"} />
       </Box>

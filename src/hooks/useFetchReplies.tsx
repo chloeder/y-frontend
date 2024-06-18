@@ -6,9 +6,7 @@ export default function useFetchReplies(id: string | undefined) {
   return useQuery<ReplyEntity[]>({
     queryKey: ["replies", id],
     queryFn: async () => {
-      const response = await axiosInstance.get(`/threads/reply/${id}`, {
-        withCredentials: true,
-      });
+      const response = await axiosInstance.get(`/threads/reply/${id}`);
 
       return response.data.replies;
     },

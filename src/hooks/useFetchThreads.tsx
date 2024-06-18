@@ -6,9 +6,8 @@ export default function useFetchTreads() {
   return useQuery<ThreadEntity[]>({
     queryKey: ["threads"],
     queryFn: async () => {
-      const res = await axiosInstance.get("/threads", {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.get("/threads");
+
       return res.data;
     },
   });

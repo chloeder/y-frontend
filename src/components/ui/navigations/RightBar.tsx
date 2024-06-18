@@ -1,8 +1,11 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import Card from "../cards/Card";
 import Suggestion from "../Suggestion";
+import useFetchSuggestion from "../../../hooks/useSuggestion";
 
 export default function RightBar() {
+  const { data, isPending } = useFetchSuggestion();
+
   return (
     <Box
       display={"flex"}
@@ -13,9 +16,13 @@ export default function RightBar() {
       width={"50%"}
     >
       <Card>
-        <Suggestion />
-        <Suggestion />
-        <Suggestion />
+        {isPending ? (
+          <Spinner color="blue.500" alignSelf={"center"} />
+        ) : (
+          data?.map((suggestion) => (
+            <Suggestion key={suggestion.id} {...suggestion} />
+          ))
+        )}
       </Card>
     </Box>
   );

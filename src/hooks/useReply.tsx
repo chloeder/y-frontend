@@ -30,9 +30,7 @@ export default function useReply(id: string | undefined) {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (data: FormData) => {
-      const res = await axiosInstance.post(`/threads/reply/${id}`, data, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.post(`/threads/reply/${id}`, data);
       return res.data;
     },
     onSuccess: () => {

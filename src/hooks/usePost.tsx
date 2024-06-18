@@ -30,9 +30,7 @@ export default function usePost() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (data: FormData) => {
-      const res = await axiosInstance.post("/threads", data, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.post("/threads", data);
       return res.data;
     },
     onSuccess: () => {

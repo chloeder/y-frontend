@@ -38,9 +38,7 @@ export default function NavigationBar() {
   const { mutate: logout, isPending } = useMutation({
     mutationFn: async () => {
       try {
-        const res = await axiosInstance.post("/auth/logout", null, {
-          withCredentials: true,
-        });
+        const res = await axiosInstance.post("/auth/logout");
         return res.data;
       } catch (error) {
         if (error instanceof Error) {
