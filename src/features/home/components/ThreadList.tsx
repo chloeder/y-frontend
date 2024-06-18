@@ -12,6 +12,7 @@ import { Ellipsis } from "lucide-react";
 import { Link } from "react-router-dom";
 import ThreadFooter from "../../../components/ui/ThreadFooter";
 import { ThreadProps } from "../types/thread.type";
+import moment from "moment";
 
 export default function ThreadList({
   id,
@@ -35,7 +36,7 @@ export default function ThreadList({
           >
             <Heading size={"sm"}>{users.fullName}</Heading>
             <Text as={"span"} fontSize={"sm"} color={"gray.500"}>
-              @{users.username} · {new Date(createdAt).toDateString()}
+              @{users.username} · {moment(createdAt).fromNow()}
             </Text>
           </Box>
           <LinkBox>

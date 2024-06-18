@@ -34,12 +34,12 @@ function App() {
         display="flex"
         justifyContent="center"
         alignItems="center"
-        bg="#1D1D1D"
+        bg="#00000"
       >
         <Spinner
           thickness="5px"
           emptyColor="gray.200"
-          color="#04A51E"
+          color="blue.500"
           size="xl"
         />
       </Box>
@@ -57,10 +57,11 @@ function App() {
             path="/thread/:id"
             element={authUser ? <DetailPage /> : <Navigate to={"/login"} />}
           />
-          <Route
+          {/* <Route
             path="/search"
             element={authUser ? <SearchPage /> : <Navigate to={"/login"} />}
-          />
+          /> */}
+          <Route path="/search" element={<SearchPage />} />
           <Route
             path="/follow"
             element={authUser ? <FollowPage /> : <Navigate to={"/login"} />}

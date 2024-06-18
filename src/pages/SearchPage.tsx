@@ -1,14 +1,22 @@
 import {
   Avatar,
   Box,
-  Button,
   Divider,
+  Flex,
   Heading,
   Input,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
+import SearchList from "../features/search/SearchList";
+import { useQuery } from "@tanstack/react-query";
+import { AuthUser } from "../features/auth/types/auth.type";
+import useSearch from "../hooks/useSearch";
 
 export default function SearchPage() {
+  const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
+  const { data, isPending, handleSearch, search } = useSearch();
+
   return (
     <>
       {/* TopBar */}
@@ -29,7 +37,11 @@ export default function SearchPage() {
           px={"15px"}
           gap={"20px"}
         >
-          <Avatar size={"sm"} />
+          <Avatar
+            name={authUser?.username}
+            size={"sm"}
+            src={authUser?.photoProfile}
+          />
           <Input
             placeholder="Search"
             bg={"gray.800"}
@@ -37,624 +49,36 @@ export default function SearchPage() {
             borderRadius={"full"}
             size={"sm"}
             me={"10px"}
+            onChange={handleSearch}
           />
         </Box>
         <Divider borderColor={"gray.600"} mt={"20px"} />
       </Box>
 
       {/* Content */}
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
+      {isPending ? (
+        <Spinner color="blue.500" my={"2rem"} alignSelf={"center"} />
+      ) : data?.length ? (
+        data.map((user) => (
+          <SearchList
+            key={user.id}
+            id={user.id}
+            fullName={user.fullName}
+            username={user.username}
+            photoProfile={user.photoProfile}
+          />
+        ))
+      ) : (
+        <Flex flexDirection="column" alignItems="center" gap="10px" m={"auto"}>
+          <Heading size="md" color="white">
+            {search ? `No results found for ${search}` : "Search for something"}
+          </Heading>
+          <Text fontSize="sm" color="gray.500">
+            Try searching for something else or check the spelling of what you
+            searched for...
           </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
-      <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        <Box flex={1} alignSelf={"center"}>
-          <Heading size={"sm"}>Dan Abrahmov</Heading>
-          <Text fontSize={"sm"} color={"gray.500"}>
-            @danabramov
-          </Text>
-        </Box>
-
-        <Button
-          colorScheme={"blue"}
-          size={"sm"}
-          borderRadius={"full"}
-          alignSelf={"center"}
-        >
-          Follow
-        </Button>
-      </Box>
+        </Flex>
+      )}
     </>
   );
 }

@@ -2,6 +2,7 @@ import { Avatar, Box, Divider, Heading, Image, Text } from "@chakra-ui/react";
 import { Ellipsis } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ReplyProps } from "../types/reply.type";
+import moment from "moment";
 
 export default function RepliesList({
   content,
@@ -23,10 +24,13 @@ export default function RepliesList({
           >
             <Heading size={"sm"}>{users.fullName}</Heading>
             <Text as={"span"} fontSize={"sm"} color={"gray.500"}>
-              @{users.username} · {createdAt}
+              @{users.username} · {moment(createdAt).fromNow()}
             </Text>
           </Box>
-          <Text fontSize={"sm"}> {content}</Text>
+          <Text fontSize={"sm"} mt={"10px"}>
+            {" "}
+            {content}
+          </Text>
           <Image src={image} mt={"10px"} />
           {/* <Box display={"flex"} mt={"10px"} gap={"2rem"} color={"gray"}>
             <Box display={"flex"} alignItems={"center"}>

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import ThreadFooter from "../../../components/ui/ThreadFooter";
 import { axiosInstance } from "../../../lib/axios";
 import { ThreadEntity } from "../entities/thread.entity";
+import moment from "moment";
 
 export default function ThreadItem() {
   const { id } = useParams();
@@ -51,11 +52,15 @@ export default function ThreadItem() {
         </Box>
 
         <Box>
-          <Text fontSize={"sm"}> {thread.data?.content}</Text>
+          <Text fontSize={"sm"} mt={"10px"}>
+            {" "}
+            {thread.data?.content}
+          </Text>
           <Image src={thread.data?.image} mt={"10px"} borderRadius={"2xl"} />
           <Box display={"flex"} mt={"10px"} gap={"2rem"} color={"gray"}>
             <Text fontSize={"sm"}>
-              {thread.data?.createdAt.toString()} · Jun 13, 2020
+              {moment(thread.data?.createdAt).format("LT")}·{" "}
+              {moment(thread.data?.createdAt).format("LL")}
             </Text>
           </Box>
           <Divider borderColor={"gray.600"} my={"10px"} />
