@@ -13,77 +13,33 @@ import {
 import { DevTool } from "@hookform/devtools";
 // import { zodResolver } from "@hookform/resolvers/zod";
 import { ImagePlus } from "lucide-react";
-import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { ThreadDto } from "../types/thread.type";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../../../lib/axios";
-import toast from "react-hot-toast";
-import { AxiosError } from "axios";
-import { threadSchema } from "../validation/thread.validate";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { AuthUser } from "../../auth/types/auth.type";
+import { useQuery } from "@tanstack/react-query";
+import useReply from "../../../hooks/useReply";
+import { useParams } from "react-router-dom";
 
-export default function CreatePost() {
-  const queryClient = useQueryClient();
-
+export default function FormReply() {
+  const { id } = useParams();
+  const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
   const {
     register,
-    reset,
     handleSubmit,
     control,
-    formState: { errors },
-  } = useForm<ThreadDto>({
-    resolver: zodResolver(threadSchema),
-    defaultValues: {
-      content: "",
-      image: "",
-    },
-  });
-  const imgRef = useRef<HTMLInputElement | null>(null);
-  const { onChange, ref, ...rest } = register("image");
-  const [preview, setPreview] = useState<string | null>(null);
-
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: async (data: FormData) => {
-      const res = await axiosInstance.post("/threads", data, {
-        withCredentials: true,
-      });
-      return res.data;
-    },
-    onSuccess: () => {
-      reset();
-      setPreview(null);
-      toast.success("Thread created");
-      queryClient.invalidateQueries({ queryKey: ["threads"] });
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message);
-      }
-    },
-  });
-
-  const onSubmit = (data: ThreadDto) => {
-    try {
-      const formData = new FormData();
-
-      formData.append("content", data.content);
-      if (data.image) {
-        formData.append("image", data.image[0]);
-      }
-
-      mutateAsync(formData);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        toast.error(error.response?.data.message);
-      }
-    }
-  };
+    errors,
+    imgRef,
+    onChange,
+    ref,
+    rest,
+    preview,
+    setPreview,
+    onSubmit,
+    isPending,
+  } = useReply(id);
 
   return (
     <>
       <Box display={"flex"} my={"20px"} mx={"20px"}>
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+        <Avatar name={authUser?.fullName} src={authUser?.photoProfile} />
         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
           <FormControl isInvalid={!!errors.content}>
             <Textarea

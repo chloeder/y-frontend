@@ -1,19 +1,9 @@
-import {
-  Avatar,
-  Divider,
-  Textarea,
-  IconButton,
-  Button,
-  Text,
-  Image,
-  Box,
-  Heading,
-} from "@chakra-ui/react";
+import { Avatar, Box, Divider, Heading, Image, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { Ellipsis, Heart, MessageSquareText, ImagePlus } from "lucide-react";
-import { ThreadEntity } from "../entities/thread.entity";
-import { axiosInstance } from "../../../lib/axios";
+import { Ellipsis, Heart, MessageSquareText } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { axiosInstance } from "../../../lib/axios";
+import { ThreadEntity } from "../entities/thread.entity";
 
 export default function ThreadItem() {
   const { id } = useParams();
@@ -79,45 +69,8 @@ export default function ThreadItem() {
               <Text ml={"5px"}>{thread.data?.replies}</Text>
             </Box>
           </Box>
-          <Divider borderColor={"gray.600"} my={"10px"} />
-          <Box display={"flex"}>
-            <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-            <Box display={"flex"} flexDirection={"column"} width={"100%"}>
-              <Textarea
-                placeholder="Add a comment..."
-                size={"md"}
-                border={"none"}
-                width={"100%"}
-                resize={"none"}
-                focusBorderColor="none"
-              />
-              <Divider borderColor={"gray.600"} my={"1rem"} />
-              <Box
-                mx={"1rem"}
-                display={"flex"}
-                alignItems={"center"}
-                justifyContent={"space-between"}
-              >
-                <IconButton
-                  variant={"unstyled"}
-                  color={"blue.500"}
-                  aria-label="Add to friends"
-                  icon={<ImagePlus />}
-                />
-                <Button
-                  colorScheme={"blue"}
-                  size={"sm"}
-                  borderRadius={"full"}
-                  w={"7rem"}
-                >
-                  Post
-                </Button>
-              </Box>
-            </Box>
-          </Box>
         </Box>
       </Box>
-      <Divider borderColor={"gray.600"} />
     </>
   );
 }

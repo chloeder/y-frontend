@@ -8,7 +8,7 @@ import { ThreadDto } from "../features/home/types/thread.type";
 import { threadSchema } from "../features/home/validation/thread.validate";
 import { axiosInstance } from "../lib/axios";
 
-export default function usePost() {
+export default function useReply(id: string | undefined) {
   const queryClient = useQueryClient();
 
   const {
@@ -30,7 +30,7 @@ export default function usePost() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (data: FormData) => {
-      const res = await axiosInstance.post("/threads", data, {
+      const res = await axiosInstance.post(`/threads/reply/${id}`, data, {
         withCredentials: true,
       });
       return res.data;
@@ -39,7 +39,7 @@ export default function usePost() {
       reset();
       setPreview(null);
       toast.success("Thread created");
-      queryClient.invalidateQueries({ queryKey: ["threads"] });
+      queryClient.invalidateQueries({ queryKey: ["replies", id] });
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
