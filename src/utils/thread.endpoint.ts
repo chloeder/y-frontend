@@ -1,12 +1,10 @@
-export function getThreadEndPoint(followType: string, id: string) {
-  switch (followType) {
+export function getThreadEndPoint(threadType: string) {
+  switch (threadType) {
     case "following":
       return "/threads/following";
-    case "like":
-      return `/threads/likes/${id}`;
-    case "replies":
-      return `/threads/replies/${id}`;
-    default:
+    case "forYou":
       return "/threads";
+    default:
+      return "";
   }
 }

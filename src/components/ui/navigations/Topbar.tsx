@@ -1,10 +1,13 @@
 import { Avatar, Box, Divider, Heading, Image } from "@chakra-ui/react";
-import { useState } from "react";
 import logo from "../../../assets/img/y.svg";
 
-export default function Topbar() {
-  const [feedType, setFeedType] = useState<string>("forYou");
-
+export default function Topbar({
+  feedType,
+  setFeedType,
+}: {
+  feedType: string;
+  setFeedType: (feedType: string) => void;
+}) {
   return (
     <Box
       position={"sticky"}
