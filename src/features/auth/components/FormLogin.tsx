@@ -59,7 +59,7 @@ export default function FormLogin() {
   return (
     <Box width={{ base: "100%", sm: "100%", md: "50%", lg: "40%", xl: "40%" }}>
       <Box display={"flex"} flexDirection={"column"} gap={"20px"} mb={10}>
-        <Heading fontFamily="ChirpExtended" size="md" color="white">
+        <Heading fontFamily="Syne" size="md" color="white">
           Login to Y
         </Heading>
 
@@ -123,12 +123,7 @@ export default function FormLogin() {
       </Box>
 
       <Box display={"flex"} justifyContent={"center"}>
-        <Heading
-          fontFamily="ChirpExtended"
-          size="sm"
-          color="white"
-          textAlign={"center"}
-        >
+        <Heading fontFamily="Syne" size="sm" color="white" textAlign={"center"}>
           Already have an account?{" "}
           <Text as={"span"} color="blue.600">
             <Link to="/register">Register here.</Link>

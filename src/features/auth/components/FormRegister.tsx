@@ -56,12 +56,12 @@ export default function FormRegister() {
 
   return (
     <Box width={{ base: "100%", sm: "100%", md: "40%", lg: "40%", xl: "40%" }}>
-      <Heading fontFamily="ChirpExtended" size="xl" color="white" mb={"3rem"}>
+      <Heading fontFamily="Syne" size="xl" color="white" mb={"3rem"}>
         Join the Trend Now.
       </Heading>
 
       <Box display={"flex"} flexDirection={"column"} gap={"20px"} mb={"35px"}>
-        <Heading fontFamily="ChirpExtended" size="md" color="white">
+        <Heading fontFamily="Syne" size="md" color="white">
           Register to Y
         </Heading>
         <FormControl isInvalid={!!errors.fullName}>
@@ -144,12 +144,7 @@ export default function FormRegister() {
       </Box>
 
       <Box display={"flex"} justifyContent={"center"}>
-        <Heading
-          fontFamily="ChirpExtended"
-          size="sm"
-          color="white"
-          textAlign={"center"}
-        >
+        <Heading fontFamily="Syne" size="sm" color="white" textAlign={"center"}>
           Already have an account?{" "}
           <Text as={"span"} color="blue.600">
             <Link to="/login">Login here.</Link>
