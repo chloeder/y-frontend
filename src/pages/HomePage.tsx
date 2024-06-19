@@ -1,4 +1,4 @@
-import { Show } from "@chakra-ui/react";
+import { Box, Show, Text } from "@chakra-ui/react";
 import FloatingButton from "../components/ui/mobile/FloatingButton";
 import Topbar from "../components/ui/navigations/Topbar";
 import Skeleton from "../components/ui/Skeleton";
@@ -22,8 +22,21 @@ export default function HomePage() {
       {/* Feed */}
       {isPending ? (
         <Skeleton />
+      ) : thread?.length ? (
+        thread.map((thread) => <ThreadList key={thread.id} {...thread} />)
       ) : (
-        thread?.map((thread) => <ThreadList key={thread.id} {...thread} />)
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          h={"100vh"}
+        >
+          <Text size={"md"} fontStyle={"italic"} color={"gray.500"}>
+            {threadType === "forYou"
+              ? "No post for you"
+              : "People didn't post anything yet"}
+          </Text>
+        </Box>
       )}
       {/* End of Feed */}
 

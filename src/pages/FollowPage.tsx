@@ -5,6 +5,7 @@ import {
   Heading,
   Image,
   Spinner,
+  Text,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -115,8 +116,21 @@ export default function FollowPage() {
       {/* Feed */}
       {isPending ? (
         <Spinner color="blue.500" my={"2rem"} alignSelf={"center"} />
+      ) : users?.length ? (
+        users.map((user) => <FollowList key={user.id} {...user} />)
       ) : (
-        users && users.map((user) => <FollowList key={user.id} {...user} />)
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          h={"100vh"}
+        >
+          <Text size={"md"} fontStyle={"italic"} color={"gray.500"}>
+            {followType === "follower"
+              ? "No Follower Found"
+              : "No Following Found"}
+          </Text>
+        </Box>
       )}
       {/* End of Feed */}
 
