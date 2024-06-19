@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import "@fontsource/poppins";
 
 const breakpoints = {
   base: "0",
