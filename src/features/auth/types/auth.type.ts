@@ -17,4 +17,8 @@ export type AuthUser = {
   email: string;
   photoProfile?: string;
   bio?: string;
+  coverImage?: string;
+  followers: number;
+  followings: number;
+  createdAt: string;
 };

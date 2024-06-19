@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Heading, Text } from "@chakra-ui/react";
+import { Avatar, Box, Heading, Text } from "@chakra-ui/react";
 
 export default function SearchList({
   fullName,
@@ -9,6 +9,7 @@ export default function SearchList({
   fullName: string;
   username: string;
   photoProfile: string;
+  isFollowing: boolean;
 }) {
   return (
     <Box display={"flex"} mt={"20px"} mx={"20px"} gap={"5px"}>
@@ -19,15 +20,6 @@ export default function SearchList({
           @{username}
         </Text>
       </Box>
-
-      <Button
-        colorScheme={"blue"}
-        size={"sm"}
-        borderRadius={"full"}
-        alignSelf={"center"}
-      >
-        Follow
-      </Button>
     </Box>
   );
 }

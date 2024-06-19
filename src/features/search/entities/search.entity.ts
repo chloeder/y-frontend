@@ -6,4 +6,5 @@ export interface UserSearchEntity {
   photoProfile: string;
   bio: string;
   coverImage: string;
+  isFollowing: boolean;
 }

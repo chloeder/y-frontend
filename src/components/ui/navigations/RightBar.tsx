@@ -18,10 +18,14 @@ export default function RightBar() {
       <Card>
         {isPending ? (
           <Spinner color="blue.500" alignSelf={"center"} />
-        ) : (
-          data?.map((suggestion) => (
+        ) : data?.length ? (
+          data.map((suggestion) => (
             <Suggestion key={suggestion.id} {...suggestion} />
           ))
+        ) : (
+          <Box color={"gray.500"} fontStyle={"italic"}>
+            No suggestion available
+          </Box>
         )}
       </Card>
     </Box>

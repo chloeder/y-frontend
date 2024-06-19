@@ -66,6 +66,7 @@ export default function SearchPage() {
             fullName={user.fullName}
             username={user.username}
             photoProfile={user.photoProfile}
+            isFollowing={user.isFollowing}
           />
         ))
       ) : (

@@ -9,14 +9,24 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ArrowLeft, Ellipsis, Heart, MessageSquareText } from "lucide-react";
+import {
+  ArrowLeft,
+  CalendarDays,
+  Ellipsis,
+  Heart,
+  MessageSquareText,
+} from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalProfile from "../components/ui/modals/ModalProfile";
+import { useQuery } from "@tanstack/react-query";
+import { AuthUser } from "../features/auth/types/auth.type";
+import moment from "moment";
 
 export default function ProfilePage() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [profileType, setProfileType] = useState("posts");
+  const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
 
   return (
     <Flex flexDirection={"column"}>
@@ -53,14 +63,19 @@ export default function ProfilePage() {
       {/* Profile Header */}
       <Box position={"relative"} display={"flex"} flexDirection={"column"}>
         <Image
-          src={"https://i.imgur.com/8HcT3E5.png"}
+          src={authUser?.coverImage || "https://bit.ly/3y1Zv3I"}
           alt={"logo"}
           width={"100%"}
           height={"200px"}
         />
 
         <Box position={"absolute"} top={"150px"} left={"40px"}>
-          <Avatar boxSize={"100px"} border={"2px solid black"} />
+          <Avatar
+            boxSize={"100px"}
+            border={"2px solid black"}
+            name={authUser?.username}
+            src={authUser?.photoProfile}
+          />
         </Box>
 
         <Box display={"flex"} flexDirection={"column"} mx={"20px"} mb={"40px"}>
@@ -86,23 +101,35 @@ export default function ProfilePage() {
           />
 
           <Box mt={"20px"} mb={"10px"}>
-            <Heading size={"md"}>Steward Lumowa</Heading>
+            <Heading size={"md"}>{authUser?.fullName}</Heading>
             <Text color={"gray.500"} fontSize={"sm"} mb={"10px"}>
-              @steward_lumowa
+              @{authUser?.username}
             </Text>
-            <Text>Programmer Wannabe</Text>
+            <Text>{authUser?.bio}</Text>
+            <Text
+              as={"span"}
+              color={"gray.500"}
+              fontSize={"sm"}
+              mt={"15px"}
+              display={"flex"}
+              alignItems={"center"}
+              gap={"5px"}
+            >
+              <CalendarDays size={"1rem"} color={"gray"} />
+              Joined {moment(authUser?.createdAt).format("LL")}
+            </Text>
           </Box>
 
           <Box display={"flex"} gap={"20px"}>
             <Text fontSize={"sm"} color={"gray.500"}>
               <Text fontWeight={"bold"} as={"span"} color={"white"}>
-                76
+                {authUser?.followings}
               </Text>{" "}
               Following
             </Text>
             <Text fontSize={"sm"} color={"gray.500"}>
               <Text fontWeight={"bold"} as={"span"} color={"white"}>
-                7
+                {authUser?.followers}
               </Text>{" "}
               Followers
             </Text>

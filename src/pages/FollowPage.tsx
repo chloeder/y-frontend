@@ -13,26 +13,19 @@ import BottomBar from "../components/ui/mobile/BottomBar";
 import FollowList from "../features/follow/components/FollowList";
 import { FollowEntity } from "../features/follow/entities/follow.entity";
 import { axiosInstance } from "../lib/axios";
+import { getFollowEndPoint } from "../utils/follow.endpoint";
 
 export default function FollowPage() {
   const [followType, setFollowType] = useState<string>("follower");
 
-  function getFollowEndPoint() {
-    switch (followType) {
-      case "following":
-        return "/users/followings";
-      default:
-        return "/users/followers";
-    }
-  }
-  const END_POINT = getFollowEndPoint();
+  const END_POINT = getFollowEndPoint(followType);
 
   const { data: users, isPending } = useQuery<FollowEntity[]>({
     queryKey: ["follow", followType],
     queryFn: async () => {
       if (followType) {
         const response = await axiosInstance.get(END_POINT);
-        console.log(response.data.data);
+
         return response.data.data;
       }
       return [];
