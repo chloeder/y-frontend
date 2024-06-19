@@ -1,5 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
-import "@fontsource/poppins";
+// import "@fontsource/poppins";
 
 const breakpoints = {
   base: "0",
@@ -17,7 +17,11 @@ export const theme = extendTheme({
   },
   styles: {
     global: {
+      heading: {
+        fontFamily: "Poppins",
+      },
       body: {
+        fontFamily: "Poppins",
         bg: "black",
         color: "white",
       },
