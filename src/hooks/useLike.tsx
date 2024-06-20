@@ -17,6 +17,9 @@ export default function useLikes(id: string | undefined) {
       query.invalidateQueries({
         queryKey: ["thread", id],
       });
+      query.invalidateQueries({
+        queryKey: ["profileThread"],
+      });
     },
     onError: (error) => {
       toast.error(error.message);
