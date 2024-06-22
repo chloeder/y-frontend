@@ -13,10 +13,12 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ModalProfile from "../../../components/ui/modals/ModalProfile";
 import { AuthUser } from "../../auth/types/auth.type";
+import useFetchProfile from "../../../hooks/useFetchProfile";
 
 export default function ProfileHeader() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
+  const { profile } = useFetchProfile(authUser?.username);
 
   return (
     <>
@@ -42,9 +44,9 @@ export default function ProfileHeader() {
             <ArrowLeft />
           </Link>
           <Box display={"flex"} flexDirection={"column"}>
-            <Heading size={"sm"}>{authUser?.fullName}</Heading>
+            <Heading size={"sm"}>{profile?.fullName}</Heading>
             <Text fontSize={"xs"} color={"gray.400"}>
-              @{authUser?.username}
+              @{profile?.username}
             </Text>
           </Box>
         </Box>
@@ -52,18 +54,19 @@ export default function ProfileHeader() {
 
       <Box position={"relative"} display={"flex"} flexDirection={"column"}>
         <Image
-          src={authUser?.coverImage || "https://bit.ly/3y1Zv3I"}
+          src={profile?.coverImage}
           alt={"logo"}
           width={"100%"}
           height={"200px"}
+          objectFit={"cover"}
         />
 
         <Box position={"absolute"} top={"150px"} left={"40px"}>
           <Avatar
             boxSize={"100px"}
             border={"2px solid black"}
-            name={authUser?.username}
-            src={authUser?.photoProfile}
+            name={profile?.username}
+            src={profile?.photoProfile}
           />
         </Box>
 
@@ -90,11 +93,11 @@ export default function ProfileHeader() {
           />
 
           <Box mt={"20px"} mb={"10px"}>
-            <Heading size={"md"}>{authUser?.fullName}</Heading>
+            <Heading size={"md"}>{profile?.fullName}</Heading>
             <Text color={"gray.500"} fontSize={"sm"} mb={"10px"}>
-              @{authUser?.username}
+              @{profile?.username}
             </Text>
-            <Text>{authUser?.bio}</Text>
+            <Text>{profile?.bio}</Text>
             <Text
               as={"span"}
               color={"gray.500"}
@@ -105,20 +108,20 @@ export default function ProfileHeader() {
               gap={"5px"}
             >
               <CalendarDays size={"1rem"} color={"gray"} />
-              Joined {moment(authUser?.createdAt).format("LL")}
+              Joined {moment(profile?.createdAt).format("LL")}
             </Text>
           </Box>
 
           <Box display={"flex"} gap={"20px"}>
             <Text fontSize={"sm"} color={"gray.500"}>
               <Text fontWeight={"bold"} as={"span"} color={"white"}>
-                {authUser?.followings}
+                {profile?.followings}
               </Text>{" "}
               Following
             </Text>
             <Text fontSize={"sm"} color={"gray.500"}>
               <Text fontWeight={"bold"} as={"span"} color={"white"}>
-                {authUser?.followers}
+                {profile?.followers}
               </Text>{" "}
               Followers
             </Text>

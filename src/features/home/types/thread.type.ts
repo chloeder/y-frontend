@@ -17,4 +17,5 @@ export type ThreadProps = {
   likes: number;
   replies: number;
   isLiked: boolean;
+  onClick?: () => void;
 };

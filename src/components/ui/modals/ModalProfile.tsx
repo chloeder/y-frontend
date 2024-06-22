@@ -3,7 +3,10 @@ import {
   Box,
   Button,
   Divider,
+  FormControl,
+  FormErrorMessage,
   Heading,
+  IconButton,
   Image,
   Input,
   Modal,
@@ -11,7 +14,13 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Textarea,
 } from "@chakra-ui/react";
+import { DevTool } from "@hookform/devtools";
+import { useQuery } from "@tanstack/react-query";
+import { Camera } from "lucide-react";
+import useProfile from "../../../hooks/useProfile";
+import { ProfileEntity } from "../../../features/profile/entities/ProfileEntity";
 
 export default function ModalProfile({
   size,
@@ -28,6 +37,29 @@ export default function ModalProfile({
   onClose: () => void;
   isOpen: boolean;
 }) {
+  const {
+    onSubmit,
+    register,
+    handleSubmit,
+    control,
+    errors,
+    photoRef,
+    photoProfileOnChange,
+    photoProfileRef,
+    photoProfileRest,
+    previewPhoto,
+    setPreviewPhoto,
+    coverRef,
+    coverImageOnChange,
+    coverImageRef,
+    coverImageRest,
+    previewCover,
+    setPreviewCover,
+    isPending,
+  } = useProfile();
+  // const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
+  const { data: profile } = useQuery<ProfileEntity>({ queryKey: ["profile"] });
+
   return (
     <Modal onClose={onClose} isOpen={isOpen} size={size} isCentered>
       <ModalOverlay bg="rgba(29, 161, 242, 0.2)" backdropFilter={"blur(1px)"} />
@@ -44,14 +76,85 @@ export default function ModalProfile({
           h={"100%"}
         >
           <Image
-            src={"https://i.imgur.com/8HcT3E5.png"}
+            src={previewCover ? previewCover : profile?.coverImage}
             alt={"logo"}
             width={"100%"}
             height={"200px"}
+            objectFit={"cover"}
+          />
+          <IconButton
+            position={"absolute"}
+            top={"80px"}
+            left={"320px"}
+            isRound={true}
+            background={"rgba(0, 0, 0, 0.5)"}
+            aria-label="upload profile picture"
+            fontSize="20px"
+            icon={<Camera color={"white"} />}
+            onClick={() => coverRef.current?.click()}
+          />
+          <Input
+            accept="image/*"
+            type="file"
+            hidden
+            {...coverImageRest}
+            ref={(e) => {
+              coverImageRef(e);
+              coverRef.current = e;
+            }}
+            onChange={(e) => {
+              coverImageOnChange(e);
+              const file = e.target.files![0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                  setPreviewCover(reader.result as string);
+                };
+                reader.readAsDataURL(file);
+              }
+            }}
           />
 
-          <Box position={"absolute"} top={"150px"} left={"40px"}>
-            <Avatar boxSize={"100px"} border={"2px solid black"} />
+          <Box position={"absolute"} top={"135px"} left={"40px"}>
+            <Avatar
+              position={"relative"}
+              boxSize={"130px"}
+              border={"3px solid black"}
+              name={profile?.username}
+              src={previewPhoto ? previewPhoto : profile?.photoProfile}
+            />
+            <IconButton
+              position={"absolute"}
+              top={"45px"}
+              left={"45px"}
+              isRound={true}
+              background={"rgba(0, 0, 0, 0.5)"}
+              aria-label="upload profile picture"
+              fontSize="20px"
+              icon={<Camera color={"white"} />}
+              onClick={() => photoRef.current?.click()}
+            />
+            <Input
+              accept="image/*"
+              type="file"
+              hidden
+              {...photoProfileRest}
+              ref={(e) => {
+                photoProfileRef(e);
+                photoRef.current = e;
+              }}
+              onChange={(e) => {
+                photoProfileOnChange(e);
+                const file = e.target.files![0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    setPreviewPhoto(reader.result as string);
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+            />
           </Box>
 
           <Box
@@ -62,35 +165,53 @@ export default function ModalProfile({
             p={"1rem"}
             gap={"20px"}
           >
-            <Input
-              placeholder="Enter your name"
-              _placeholder={{ fontSize: "12px" }}
-              borderColor={"gray.600"}
-            />
-            <Input
-              placeholder="Enter your username"
-              _placeholder={{
-                fontSize: "12px",
-              }}
-              borderColor={"gray.600"}
-            />
-            <Input
-              placeholder="Enter your bio"
-              _placeholder={{ fontSize: "12px" }}
-              borderColor={"gray.600"}
-            />
+            <FormControl isInvalid={!!errors.fullName}>
+              <Input
+                placeholder={profile?.fullName && profile?.fullName}
+                _placeholder={{ fontSize: "12px" }}
+                borderColor={"gray.600"}
+                defaultValue={profile?.fullName}
+                {...register("fullName")}
+              />
+              <FormErrorMessage>{errors.fullName?.message}</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.username}>
+              <Input
+                placeholder={profile?.username && profile?.username}
+                _placeholder={{
+                  fontSize: "12px",
+                }}
+                borderColor={"gray.600"}
+                defaultValue={profile?.username}
+                {...register("username")}
+              />{" "}
+              <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.username}>
+              <Textarea
+                placeholder={profile?.bio && profile?.bio}
+                _placeholder={{ fontSize: "12px" }}
+                borderColor={"gray.600"}
+                defaultValue={profile?.bio}
+                {...register("bio")}
+              />
+              <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
+            </FormControl>
           </Box>
           <Divider borderColor={"gray.600"} />
           <Button
+            isLoading={isPending}
             width={"30%"}
             m={"20px"}
             borderRadius={"full"}
             ml={"auto"}
             colorScheme={"blue"}
+            onClick={handleSubmit(onSubmit)}
           >
             Save
           </Button>
         </Box>
+        <DevTool control={control} />
       </ModalContent>
     </Modal>
   );

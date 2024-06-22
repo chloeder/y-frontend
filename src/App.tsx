@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
 import FollowPage from "./pages/FollowPage";
@@ -45,41 +45,31 @@ function App() {
       </Box>
     );
 
+  const PrivateRoute = () => {
+    return authUser ? <Outlet /> : <Navigate to={"/login"} />;
+  };
+
+  const AuthRoute = () => {
+    return !authUser ? <Outlet /> : <Navigate to={"/"} />;
+  };
+
   return (
     <>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route
-            index
-            element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
-          />
-          <Route
-            path="/thread/:id"
-            element={authUser ? <DetailPage /> : <Navigate to={"/login"} />}
-          />
-          {/* <Route
-            path="/search"
-            element={authUser ? <SearchPage /> : <Navigate to={"/login"} />}
-          /> */}
-          <Route path="/search" element={<SearchPage />} />
-          <Route
-            path="/follow"
-            element={authUser ? <FollowPage /> : <Navigate to={"/login"} />}
-          />
-          <Route
-            path="/profile"
-            element={authUser ? <ProfilePage /> : <Navigate to={"/login"} />}
-          />
+          <Route element={<PrivateRoute />}>
+            <Route index element={<HomePage />} />
+            <Route path="/thread/:id" element={<DetailPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/follow" element={<FollowPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Route>
         </Route>
 
-        <Route
-          path="/login"
-          element={!authUser ? <LoginPage /> : <Navigate to={"/"} />}
-        />
-        <Route
-          path="/register"
-          element={!authUser ? <RegisterPage /> : <Navigate to={"/"} />}
-        />
+        <Route element={<AuthRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
       </Routes>
       <Toaster />
     </>

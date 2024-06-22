@@ -1,18 +1,22 @@
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   Heading,
   Image,
   LinkBox,
   LinkOverlay,
+  MenuButton,
+  MenuList,
+  Menu,
   Text,
 } from "@chakra-ui/react";
-import { Ellipsis } from "lucide-react";
+import { Ellipsis, Trash2 } from "lucide-react";
+import moment from "moment";
 import { Link } from "react-router-dom";
 import ThreadFooter from "../../../components/ui/ThreadFooter";
 import { ThreadProps } from "../types/thread.type";
-import moment from "moment";
 
 export default function ThreadList({
   id,
@@ -23,6 +27,7 @@ export default function ThreadList({
   likes,
   replies,
   isLiked,
+  onClick,
 }: ThreadProps) {
   return (
     <>
@@ -52,7 +57,34 @@ export default function ThreadList({
             isLiked={isLiked}
           />
         </Box>
-        <Ellipsis size={20} color={"gray"} />
+        <Box>
+          <Menu>
+            <MenuButton>
+              <Ellipsis size={20} color={"gray"} />
+            </MenuButton>
+            <MenuList
+              color={"white"}
+              bg={"black"}
+              boxShadow={"0px 0px 10px rgba(255, 255, 255, 0.4)"}
+              border={"none"}
+              bgColor={"black"}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"flex-start"}
+            >
+              {/* MenuItems are not rendered unless Menu is open */}
+              <Button
+                color={"red"}
+                bg={"none"}
+                _hover={{ bg: "none" }}
+                onClick={onClick}
+              >
+                <Trash2 size={17} />
+                Delete Thread
+              </Button>
+            </MenuList>
+          </Menu>
+        </Box>
       </Box>
       <Divider borderColor={"gray.600"} />
     </>

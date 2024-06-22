@@ -7,7 +7,8 @@ import ThreadList from "../features/home/components/ThreadList";
 import useFetchTreads from "../hooks/useFetchThreads";
 
 export default function HomePage() {
-  const { thread, isPending, threadType, setThreadType } = useFetchTreads();
+  const { thread, isPending, threadType, setThreadType, deleteThread } =
+    useFetchTreads();
 
   return (
     <>
@@ -23,7 +24,13 @@ export default function HomePage() {
       {isPending ? (
         <Skeleton />
       ) : thread?.length ? (
-        thread.map((thread) => <ThreadList key={thread.id} {...thread} />)
+        thread.map((thread) => (
+          <ThreadList
+            key={thread.id}
+            {...thread}
+            onClick={() => deleteThread(thread.id)}
+          />
+        ))
       ) : (
         <Box
           display={"flex"}

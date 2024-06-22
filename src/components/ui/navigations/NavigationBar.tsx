@@ -7,13 +7,13 @@ import {
   Image,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
   Show,
   Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CircleFadingPlus,
   CircleUser,
@@ -21,13 +21,12 @@ import {
   Home,
   UserRoundSearch,
 } from "lucide-react";
+import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/img/Y.png";
-import ModalPost from "../modals/ModalPost";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../../../lib/axios";
-import toast from "react-hot-toast";
 import { AuthUser } from "../../../features/auth/types/auth.type";
+import { axiosInstance } from "../../../lib/axios";
+import ModalPost from "../modals/ModalPost";
 
 export default function NavigationBar() {
   const queryClient = useQueryClient();
@@ -219,25 +218,36 @@ export default function NavigationBar() {
               </Box>
             </Box>
           </MenuButton>
-          <MenuList color={"gray.500"} bgColor={"black"}>
+          <MenuList
+            color={"white"}
+            bg={"black"}
+            boxShadow={"0px 0px 10px rgba(255, 255, 255, 0.4)"}
+            border={"none"}
+            bgColor={"black"}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"flex-start"}
+          >
             {/* MenuItems are not rendered unless Menu is open */}
-            <MenuItem
-              bg={"black"}
+            <Button
+              bg={"none"}
               as={Link}
+              _hover={{ bg: "none" }}
               to="/profile"
-              _hover={{ color: "white" }}
+              color={"white"}
             >
               Edit Profile
-            </MenuItem>
-            <MenuItem
-              bg={"black"}
-              as="button"
+            </Button>
+            <Button
+              bg={"none"}
+              color={"white"}
+              _hover={{ bg: "none" }}
               onClick={() => {
                 logout();
               }}
             >
-              Logout
-            </MenuItem>
+              Log out @{authUser.username}
+            </Button>
           </MenuList>
         </Menu>
       )}
