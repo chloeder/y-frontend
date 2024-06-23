@@ -11,6 +11,8 @@ import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "./lib/axios";
 import { Box, Spinner } from "@chakra-ui/react";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 
 function App() {
   const { data: authUser, isPending } = useQuery({
@@ -23,6 +25,7 @@ function App() {
         throw new Error("Unauthenticated");
       }
     },
+    retry: 1,
   });
 
   if (isPending)
@@ -69,6 +72,11 @@ function App() {
         <Route element={<AuthRoute />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPasswordPage />}
+          />
         </Route>
       </Routes>
       <Toaster />

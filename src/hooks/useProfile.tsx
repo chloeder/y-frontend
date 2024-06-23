@@ -41,7 +41,9 @@ export default function useProfile() {
         const res = await axiosInstance.patch(`/users/profile/update`, data);
         return res.data;
       } catch (error) {
-        console.log(error);
+        if (error instanceof AxiosError) {
+          throw error.response?.data.message;
+        }
       }
     },
     onSuccess: () => {

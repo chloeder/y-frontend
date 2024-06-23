@@ -3,6 +3,15 @@ export type LoginDto = {
   password: string;
 };
 
+export type ForgotPasswordDto = {
+  email: string;
+};
+
+export type ResetPasswordDto = {
+  password: string;
+  confirmPassword: string;
+};
+
 export type RegisterDto = {
   fullName: string;
   username: string;

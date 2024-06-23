@@ -135,11 +135,12 @@ export default function FormRegister() {
           <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
         </FormControl>
         <Button
+          isLoading={isPending}
           colorScheme="blue"
           borderRadius={"full"}
           onClick={handleSubmit(onSubmit)}
         >
-          {isPending ? "Registering..." : "Register"}
+          Register
         </Button>
       </Box>
 
