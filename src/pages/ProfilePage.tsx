@@ -100,7 +100,7 @@ export default function ProfilePage() {
           display={"flex"}
           justifyContent={"center"}
           alignItems={"center"}
-          h={"100vh"}
+          my={"1rem"}
         >
           <Text size={"md"} fontStyle={"italic"} color={"gray.500"}>
             {profileType === "posts"

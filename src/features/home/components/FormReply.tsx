@@ -10,13 +10,12 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { DevTool } from "@hookform/devtools";
 // import { zodResolver } from "@hookform/resolvers/zod";
-import { ImagePlus } from "lucide-react";
-import { AuthUser } from "../../auth/types/auth.type";
 import { useQuery } from "@tanstack/react-query";
-import useReply from "../../../hooks/useReply";
+import { ImagePlus } from "lucide-react";
 import { useParams } from "react-router-dom";
+import useReply from "../../../hooks/useReply";
+import { AuthUser } from "../../auth/types/auth.type";
 
 export default function FormReply() {
   const { id } = useParams();
@@ -24,7 +23,6 @@ export default function FormReply() {
   const {
     register,
     handleSubmit,
-    control,
     errors,
     imgRef,
     onChange,
@@ -103,7 +101,6 @@ export default function FormReply() {
         </Box>
       </Box>
       <Divider borderColor={"gray.600"} />
-      <DevTool control={control} />
     </>
   );
 }

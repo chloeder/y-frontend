@@ -14,7 +14,6 @@ export default function useProfile() {
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<ProfileDto>({
     resolver: zodResolver(profileSchema),
@@ -84,7 +83,6 @@ export default function useProfile() {
     onSubmit,
     register,
     handleSubmit,
-    control,
     errors,
     photoRef,
     coverRef,

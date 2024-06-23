@@ -16,11 +16,10 @@ import {
   ModalOverlay,
   Textarea,
 } from "@chakra-ui/react";
-import { DevTool } from "@hookform/devtools";
 import { useQuery } from "@tanstack/react-query";
 import { Camera } from "lucide-react";
-import useProfile from "../../../hooks/useProfile";
 import { ProfileEntity } from "../../../features/profile/entities/ProfileEntity";
+import useProfile from "../../../hooks/useProfile";
 
 export default function ModalProfile({
   size,
@@ -41,7 +40,6 @@ export default function ModalProfile({
     onSubmit,
     register,
     handleSubmit,
-    control,
     errors,
     photoRef,
     photoProfileOnChange,
@@ -211,7 +209,6 @@ export default function ModalProfile({
             Save
           </Button>
         </Box>
-        <DevTool control={control} />
       </ModalContent>
     </Modal>
   );

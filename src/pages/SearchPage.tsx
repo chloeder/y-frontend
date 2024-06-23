@@ -1,13 +1,18 @@
 import {
   Avatar,
   Box,
+  Button,
   Divider,
   Flex,
   Heading,
   Input,
+  Menu,
+  MenuButton,
+  MenuList,
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import SearchList from "../features/search/SearchList";
 import { useQuery } from "@tanstack/react-query";
 import { AuthUser } from "../features/auth/types/auth.type";
@@ -37,11 +42,64 @@ export default function SearchPage() {
           px={"15px"}
           gap={"20px"}
         >
-          <Avatar
-            name={authUser?.username}
-            size={"sm"}
-            src={authUser?.photoProfile}
-          />
+          <Menu>
+            <MenuButton>
+              <Box
+                display={{ xl: "flex" }}
+                gap={"10px"}
+                alignItems={"center"}
+                width={"100%"}
+              >
+                <Avatar
+                  size={"sm"}
+                  src={authUser?.photoProfile}
+                  name={authUser?.fullName}
+                />
+                <Box hideBelow={"xl"}>
+                  <Heading size={"sm"}>{authUser?.fullName}</Heading>
+                  <Text
+                    display={{ base: "none", md: "flex" }}
+                    fontSize={"xs"}
+                    color={"gray.500"}
+                  >
+                    @{authUser?.username}
+                  </Text>
+                </Box>
+              </Box>
+            </MenuButton>
+            <MenuList
+              color={"white"}
+              bg={"black"}
+              boxShadow={"0px 0px 10px rgba(255, 255, 255, 0.4)"}
+              border={"none"}
+              bgColor={"black"}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"flex-start"}
+            >
+              {/* MenuItems are not rendered unless Menu is open */}
+              <Button
+                bg={"none"}
+                as={Link}
+                _hover={{ bg: "none" }}
+                to="/profile"
+                color={"white"}
+              >
+                Edit Profile
+              </Button>
+              <Button
+                bg={"none"}
+                color={"white"}
+                _hover={{ bg: "none" }}
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
+              >
+                Log out @{authUser?.username}
+              </Button>
+            </MenuList>
+          </Menu>
           <Input
             placeholder="Search"
             bg={"gray.800"}
@@ -74,7 +132,7 @@ export default function SearchPage() {
           <Heading size="md" color="white">
             {search ? `No results found for ${search}` : "Search for something"}
           </Heading>
-          <Text fontSize="sm" color="gray.500">
+          <Text fontSize="sm" color="gray.500" textAlign={"center"}>
             Try searching for something else or check the spelling of what you
             searched for...
           </Text>

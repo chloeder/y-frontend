@@ -15,7 +15,6 @@ export default function useReply(id: string | undefined) {
     register,
     reset,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<ThreadDto>({
     resolver: zodResolver(threadSchema),
@@ -66,7 +65,6 @@ export default function useReply(id: string | undefined) {
   return {
     register,
     handleSubmit,
-    control,
     errors,
     imgRef,
     onChange,

@@ -15,7 +15,6 @@ export default function usePost() {
     register,
     reset,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm<ThreadDto>({
     resolver: zodResolver(threadSchema),
@@ -66,7 +65,6 @@ export default function usePost() {
   return {
     register,
     handleSubmit,
-    control,
     errors,
     imgRef,
     onChange,

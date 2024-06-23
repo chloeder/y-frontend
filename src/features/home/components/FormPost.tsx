@@ -10,19 +10,17 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { DevTool } from "@hookform/devtools";
 // import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery } from "@tanstack/react-query";
 import { ImagePlus } from "lucide-react";
 import usePost from "../../../hooks/usePost";
 import { AuthUser } from "../../auth/types/auth.type";
-import { useQuery } from "@tanstack/react-query";
 
 export default function FormPost() {
   const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
   const {
     register,
     handleSubmit,
-    control,
     errors,
     imgRef,
     onChange,
@@ -101,7 +99,6 @@ export default function FormPost() {
         </Box>
       </Box>
       <Divider borderColor={"gray.600"} />
-      <DevTool control={control} />
     </>
   );
 }
