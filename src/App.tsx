@@ -23,7 +23,6 @@ function App() {
         throw new Error("Unauthenticated");
       }
     },
-    retry: 1,
   });
 
   if (isPending)
@@ -56,6 +55,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="*" element={<Navigate to="/" />} />
         <Route path="/" element={<MainLayout />}>
           <Route element={<PrivateRoute />}>
             <Route index element={<HomePage />} />
