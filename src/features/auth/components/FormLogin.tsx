@@ -13,14 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { axiosInstance } from "../../../lib/axios";
 import { LoginDto } from "../types/auth.type";
 import { loginSchema } from "../validation/auth.validate";
 
 export default function FormLogin() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const {
     register,
@@ -32,16 +31,17 @@ export default function FormLogin() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (data: LoginDto) => {
-      const res = await axiosInstance.post("/auth/login", data, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.post("/auth/login", data);
+      const { token } = res.data.data;
+      if (token) {
+        localStorage.setItem("token", token);
+      }
       return res.data;
     },
     onSuccess: () => {
       // refetch the authUser
       toast.success("Login Success");
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
-      navigate("/");
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
