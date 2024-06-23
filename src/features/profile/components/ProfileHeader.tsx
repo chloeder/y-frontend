@@ -4,6 +4,7 @@ import {
   Button,
   Heading,
   Image,
+  Spinner,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -18,7 +19,7 @@ import useFetchProfile from "../../../hooks/useFetchProfile";
 export default function ProfileHeader() {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
-  const { profile } = useFetchProfile(authUser?.username);
+  const { profile, isPending } = useFetchProfile(authUser?.username);
 
   return (
     <>
@@ -52,82 +53,91 @@ export default function ProfileHeader() {
         </Box>
       </Box>
 
-      <Box position={"relative"} display={"flex"} flexDirection={"column"}>
-        <Image
-          src={profile?.coverImage}
-          alt={"logo"}
-          width={"100%"}
-          height={"200px"}
-          objectFit={"cover"}
-        />
-
-        <Box position={"absolute"} top={"150px"} left={"40px"}>
-          <Avatar
-            boxSize={"100px"}
-            border={"2px solid black"}
-            name={profile?.username}
-            src={profile?.photoProfile}
+      {isPending ? (
+        <Spinner color="blue.500" my={"2rem"} alignSelf={"center"} />
+      ) : (
+        <Box position={"relative"} display={"flex"} flexDirection={"column"}>
+          <Image
+            src={profile?.coverImage}
+            alt={"logo"}
+            width={"100%"}
+            height={"200px"}
+            objectFit={"cover"}
           />
-        </Box>
 
-        <Box display={"flex"} flexDirection={"column"} mx={"20px"} mb={"40px"}>
-          <Button
-            width={"110px"}
-            size={"sm"}
-            border={"1px solid"}
-            borderColor={"gray.500"}
-            borderRadius={"full"}
-            bg={"none"}
-            color={"white"}
-            alignSelf={"flex-end"}
-            mt={"10px"}
-            onClick={onOpen}
+          <Box position={"absolute"} top={"150px"} left={"40px"}>
+            <Avatar
+              boxSize={"100px"}
+              border={"2px solid black"}
+              name={profile?.username}
+              src={profile?.photoProfile}
+            />
+          </Box>
+
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            mx={"20px"}
+            mb={"40px"}
           >
-            Edit Profile
-          </Button>
-
-          <ModalProfile
-            isOpen={isOpen}
-            onClose={onClose}
-            size={{ base: "full", sm: "full", md: "lg", lg: "xl", xl: "2xl" }}
-          />
-
-          <Box mt={"20px"} mb={"10px"}>
-            <Heading size={"md"}>{profile?.fullName}</Heading>
-            <Text color={"gray.500"} fontSize={"sm"} mb={"10px"}>
-              @{profile?.username}
-            </Text>
-            <Text>{profile?.bio}</Text>
-            <Text
-              as={"span"}
-              color={"gray.500"}
-              fontSize={"sm"}
-              mt={"15px"}
-              display={"flex"}
-              alignItems={"center"}
-              gap={"5px"}
+            <Button
+              width={"110px"}
+              size={"sm"}
+              border={"1px solid"}
+              borderColor={"gray.500"}
+              borderRadius={"full"}
+              bg={"none"}
+              color={"white"}
+              alignSelf={"flex-end"}
+              mt={"10px"}
+              onClick={onOpen}
             >
-              <CalendarDays size={"1rem"} color={"gray"} />
-              Joined {moment(profile?.createdAt).format("LL")}
-            </Text>
-          </Box>
+              Edit Profile
+            </Button>
 
-          <Box display={"flex"} gap={"20px"}>
-            <Text fontSize={"sm"} color={"gray.500"}>
-              <Text fontWeight={"bold"} as={"span"} color={"white"}>
-                {profile?.followings}
-              </Text>{" "}
-              Following
-            </Text>
-            <Text fontSize={"sm"} color={"gray.500"}>
-              <Text fontWeight={"bold"} as={"span"} color={"white"}>
-                {profile?.followers}
-              </Text>{" "}
-              Followers
-            </Text>
+            <ModalProfile
+              isOpen={isOpen}
+              onClose={onClose}
+              size={{ base: "full", sm: "full", md: "lg", lg: "xl", xl: "2xl" }}
+            />
+
+            <Box mt={"20px"} mb={"10px"}>
+              <Heading size={"md"}>{profile?.fullName}</Heading>
+              <Text color={"gray.500"} fontSize={"sm"} mb={"10px"}>
+                @{profile?.username}
+              </Text>
+              <Text>{profile?.bio}</Text>
+              <Text
+                as={"span"}
+                color={"gray.500"}
+                fontSize={"sm"}
+                mt={"15px"}
+                display={"flex"}
+                alignItems={"center"}
+                gap={"5px"}
+              >
+                <CalendarDays size={"1rem"} color={"gray"} />
+                Joined {moment(profile?.createdAt).format("LL")}
+              </Text>
+            </Box>
+
+            <Box display={"flex"} gap={"20px"}>
+              <Text fontSize={"sm"} color={"gray.500"}>
+                <Text fontWeight={"bold"} as={"span"} color={"white"}>
+                  {profile?.followings}
+                </Text>{" "}
+                Following
+              </Text>
+              <Text fontSize={"sm"} color={"gray.500"}>
+                <Text fontWeight={"bold"} as={"span"} color={"white"}>
+                  {profile?.followers}
+                </Text>{" "}
+                Followers
+              </Text>
+            </Box>
           </Box>
         </Box>
-      </Box>
+      )}
     </>
   );
 }
