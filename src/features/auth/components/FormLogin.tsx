@@ -67,23 +67,23 @@ export default function FormLogin() {
           Login to Y
         </Heading>
 
-        <FormControl isInvalid={!!errors.email}>
+        <FormControl isInvalid={!!errors.username}>
           <Input
-            type="email"
+            type="text"
             borderColor={"gray.600"}
             color="white"
             size="lg"
             borderRadius="lg"
-            id="email"
-            placeholder="Email"
+            id="username"
+            placeholder="Username"
             _placeholder={{
               opacity: 0.5,
               color: "gray.500",
               fontFamily: "Poppins",
             }}
-            {...register("email")}
+            {...register("username")}
           />
-          <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+          <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!errors.password}>
           <Input
