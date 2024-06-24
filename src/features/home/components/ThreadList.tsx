@@ -17,6 +17,8 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import ThreadFooter from "../../../components/ui/ThreadFooter";
 import { ThreadProps } from "../types/thread.type";
+import { useQuery } from "@tanstack/react-query";
+import { AuthUser } from "../../auth/types/auth.type";
 
 export default function ThreadList({
   id,
@@ -29,6 +31,8 @@ export default function ThreadList({
   isLiked,
   onClick,
 }: ThreadProps) {
+  const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
+
   return (
     <>
       <Box display={"flex"} mt={"20px"} mx={"20px"} my={"20px"}>
@@ -57,34 +61,37 @@ export default function ThreadList({
             isLiked={isLiked}
           />
         </Box>
-        <Box>
-          <Menu>
-            <MenuButton>
-              <Ellipsis size={20} color={"gray"} />
-            </MenuButton>
-            <MenuList
-              color={"white"}
-              bg={"black"}
-              boxShadow={"0px 0px 10px rgba(255, 255, 255, 0.4)"}
-              border={"none"}
-              bgColor={"black"}
-              display={"flex"}
-              flexDirection={"column"}
-              alignItems={"flex-start"}
-            >
-              {/* MenuItems are not rendered unless Menu is open */}
-              <Button
-                color={"red"}
-                bg={"none"}
-                _hover={{ bg: "none" }}
-                onClick={onClick}
+        {authUser?.id === users.id && (
+          <Box>
+            <Menu>
+              <MenuButton>
+                <Ellipsis size={20} color={"gray"} />
+              </MenuButton>
+              <MenuList
+                color={"white"}
+                bg={"black"}
+                boxShadow={"0px 0px 10px rgba(255, 255, 255, 0.4)"}
+                border={"none"}
+                bgColor={"black"}
+                display={"flex"}
+                flexDirection={"column"}
+                alignItems={"flex-start"}
               >
-                <Trash2 size={17} />
-                Delete Thread
-              </Button>
-            </MenuList>
-          </Menu>
-        </Box>
+                {/* MenuItems are not rendered unless Menu is open */}
+
+                <Button
+                  color={"red"}
+                  bg={"none"}
+                  _hover={{ bg: "none" }}
+                  onClick={onClick}
+                >
+                  <Trash2 size={17} />
+                  Delete Thread
+                </Button>
+              </MenuList>
+            </Menu>
+          </Box>
+        )}
       </Box>
       <Divider borderColor={"gray.600"} />
     </>

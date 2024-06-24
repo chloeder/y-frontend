@@ -55,16 +55,6 @@ export default function SearchPage() {
                   src={authUser?.photoProfile}
                   name={authUser?.fullName}
                 />
-                <Box hideBelow={"xl"}>
-                  <Heading size={"sm"}>{authUser?.fullName}</Heading>
-                  <Text
-                    display={{ base: "none", md: "flex" }}
-                    fontSize={"xs"}
-                    color={"gray.500"}
-                  >
-                    @{authUser?.username}
-                  </Text>
-                </Box>
               </Box>
             </MenuButton>
             <MenuList
