@@ -41,7 +41,10 @@ export default function FormReply() {
         <Box display={"flex"} flexDirection={"column"} width={"100%"}>
           <FormControl isInvalid={!!errors.content}>
             <Textarea
-              placeholder="What's on your mind, Dan?"
+              placeholder={`What's on your mind, ${authUser?.fullName.slice(
+                0,
+                4
+              )}?`}
               size={"md"}
               border={"none"}
               width={"100%"}
