@@ -118,7 +118,6 @@ export default function ModalPost({
             w={"7rem"}
             onClick={() => {
               handleSubmit(onSubmit)();
-              onClose();
             }}
           >
             Post
