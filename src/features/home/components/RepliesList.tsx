@@ -1,5 +1,5 @@
 import { Avatar, Box, Divider, Heading, Image, Text } from "@chakra-ui/react";
-import { Ellipsis } from "lucide-react";
+// import { Ellipsis } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ReplyProps } from "../types/reply.type";
 import moment from "moment";
@@ -42,7 +42,7 @@ export default function RepliesList({
             </Box>
           </Box> */}
         </Box>
-        <Ellipsis size={20} color={"gray"} />
+        {/* <Ellipsis size={20} color={"gray"} /> */}
       </Box>
       <Divider borderColor={"gray.600"} />
     </>
