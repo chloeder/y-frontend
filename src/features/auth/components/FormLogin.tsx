@@ -131,7 +131,7 @@ export default function FormLogin() {
 
       <Box display={"flex"} justifyContent={"center"}>
         <Heading fontFamily="Syne" size="sm" color="white" textAlign={"center"}>
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <Text as={"span"} color="blue.600">
             <Link to="/register">Register here.</Link>
           </Text>
