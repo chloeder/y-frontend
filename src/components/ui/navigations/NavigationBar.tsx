@@ -23,12 +23,14 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/img/Y.png";
 import { AuthUser } from "../../../features/auth/types/auth.type";
+import useFetchProfile from "../../../hooks/useFetchProfile";
 import ModalPost from "../modals/ModalPost";
 
 export default function NavigationBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
   const { data: authUser } = useQuery<AuthUser>({ queryKey: ["authUser"] });
+  const { profile } = useFetchProfile(authUser?.username);
 
   return (
     <Box
@@ -162,15 +164,15 @@ export default function NavigationBar() {
               alignItems={"center"}
               width={"100%"}
             >
-              <Avatar src={authUser.photoProfile} name={authUser.fullName} />
+              <Avatar src={profile?.photoProfile} name={profile?.fullName} />
               <Box hideBelow={"xl"}>
-                <Heading size={"sm"}>{authUser.fullName}</Heading>
+                <Heading size={"sm"}>{profile?.fullName}</Heading>
                 <Text
                   display={{ base: "none", md: "flex" }}
                   fontSize={"xs"}
                   color={"gray.500"}
                 >
-                  @{authUser.username}
+                  @{profile?.username}
                 </Text>
               </Box>
             </Box>
@@ -204,7 +206,7 @@ export default function NavigationBar() {
                 window.location.reload();
               }}
             >
-              Log out @{authUser.username}
+              Log out @{profile?.username}
             </Button>
           </MenuList>
         </Menu>

@@ -1,6 +1,12 @@
 import { Box, Heading } from "@chakra-ui/react";
 
-export default function Card({ children }: { children: React.ReactNode }) {
+export default function Card({
+  children,
+  title,
+}: {
+  children: React.ReactNode;
+  title: string;
+}) {
   return (
     <Box
       border={"1px solid #2c3340"}
@@ -11,7 +17,7 @@ export default function Card({ children }: { children: React.ReactNode }) {
       gap={"20px"}
       width={"100%"}
     >
-      <Heading size={"sm"}>Suggestion For You</Heading>
+      <Heading size={"sm"}>{title}</Heading>
       {children}
     </Box>
   );
