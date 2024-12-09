@@ -65,6 +65,16 @@ export default function useProfile() {
       formData.append("fullName", data.fullName);
       formData.append("username", data.username);
       formData.append("bio", data.bio);
+      if (data.realName) {
+        formData.append("realName", data.realName);
+      }
+      if (data.bornDate) {
+        formData.append("bornDate", data.bornDate.toString());
+      }
+      if (data.address) {
+        formData.append("address", data.address);
+      }
+
       if (data.photoProfile) {
         formData.append("photoProfile", data.photoProfile[0]);
       }

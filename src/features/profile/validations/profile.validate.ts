@@ -6,4 +6,7 @@ export const profileSchema = z.object({
   bio: z.string().optional(),
   photoProfile: z.any(),
   coverImage: z.any(),
+  realName: z.string().optional(),
+  bornDate: z.string().optional(),
+  address: z.string().optional(),
 });

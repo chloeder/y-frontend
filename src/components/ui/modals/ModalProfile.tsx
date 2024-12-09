@@ -5,6 +5,7 @@ import {
   Divider,
   FormControl,
   FormErrorMessage,
+  FormLabel,
   Heading,
   IconButton,
   Image,
@@ -163,7 +164,19 @@ export default function ModalProfile({
             p={"1rem"}
             gap={"20px"}
           >
+            <FormControl isInvalid={!!errors.realName}>
+              <FormLabel>Real Name</FormLabel>
+              <Input
+                placeholder={profile?.realName && profile?.realName}
+                _placeholder={{ fontSize: "12px" }}
+                borderColor={"gray.600"}
+                defaultValue={profile?.realName}
+                {...register("realName")}
+              />
+              <FormErrorMessage>{errors.realName?.message}</FormErrorMessage>
+            </FormControl>
             <FormControl isInvalid={!!errors.fullName}>
+              <FormLabel>Full Name</FormLabel>
               <Input
                 placeholder={profile?.fullName && profile?.fullName}
                 _placeholder={{ fontSize: "12px" }}
@@ -174,6 +187,7 @@ export default function ModalProfile({
               <FormErrorMessage>{errors.fullName?.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.username}>
+              <FormLabel>Username</FormLabel>
               <Input
                 placeholder={profile?.username && profile?.username}
                 _placeholder={{
@@ -185,7 +199,20 @@ export default function ModalProfile({
               />{" "}
               <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl isInvalid={!!errors.username}>
+            <FormControl isInvalid={!!errors.bornDate}>
+              <FormLabel>Born Date</FormLabel>
+              <Input
+                type="date"
+                placeholder={profile?.bornDate && profile?.bornDate}
+                _placeholder={{ fontSize: "12px" }}
+                borderColor={"gray.600"}
+                defaultValue={profile?.bornDate}
+                {...register("bornDate")}
+              />
+              <FormErrorMessage>{errors.bornDate?.message}</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.bio}>
+              <FormLabel>Bio</FormLabel>
               <Textarea
                 placeholder={profile?.bio && profile?.bio}
                 _placeholder={{ fontSize: "12px" }}
@@ -193,7 +220,18 @@ export default function ModalProfile({
                 defaultValue={profile?.bio}
                 {...register("bio")}
               />
-              <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
+              <FormErrorMessage>{errors.bio?.message}</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={!!errors.address}>
+              <FormLabel>Address</FormLabel>
+              <Textarea
+                placeholder={profile?.address && profile?.address}
+                _placeholder={{ fontSize: "12px" }}
+                borderColor={"gray.600"}
+                defaultValue={profile?.address}
+                {...register("address")}
+              />
+              <FormErrorMessage>{errors.address?.message}</FormErrorMessage>
             </FormControl>
           </Box>
           <Divider borderColor={"gray.600"} />
